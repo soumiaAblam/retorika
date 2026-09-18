@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+.auth-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(var(--space-4), 5vw, var(--space-10));
+}
+
+.auth-scene {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.auth-scene::before {
+  position: absolute;
+  inline-size: clamp(18rem, 44vw, 30rem);
+  block-size: clamp(18rem, 44vw, 30rem);
+  inset-inline-end: clamp(-14rem, -11vw, -7rem);
+  inset-block-end: clamp(-16rem, -14vw, -10rem);
+  border: clamp(2rem, 4vw, 3.1rem) solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  content: '';
+}
+
+.auth-door {
+  position: absolute;
+  inline-size: clamp(8rem, 20vw, 11rem);
+  block-size: clamp(11rem, 30vh, 15rem);
+  inset-inline-end: clamp(1rem, 9vw, 6rem);
+  inset-block-end: 0;
+  border-radius: 8rem 8rem 0 0;
+  background: #d9f3ff;
+  opacity: 0.62;
+}
+
+.auth-door::after {
+  position: absolute;
+  inline-size: 38%;
+  block-size: 52%;
+  inset-inline-start: 31%;
+  inset-block-end: 0;
+  border-radius: 3rem 3rem 0 0;
+  background: var(--color-pink);
+  content: '';
+}
+
+.auth-sun {
+  position: absolute;
+  inline-size: clamp(2.5rem, 6vw, 4rem);
+  block-size: clamp(2.5rem, 6vw, 4rem);
+  inset-inline-end: clamp(7rem, 23vw, 18rem);
+  inset-block-end: clamp(9rem, 28vh, 16rem);
+  border-radius: 50%;
+  background: var(--color-yellow);
+  opacity: 0.88;
+}
+
+.auth-card {
+  position: relative;
+  inline-size: min(100%, 26.875rem);
+  padding: 1.875rem;
+  border-color: rgb(255 255 255 / 80%);
+  border-radius: 1.25rem;
+  box-shadow: 0 1.75rem 4.375rem rgb(4 29 68 / 30%);
+}
+
+.auth-logo {
+  inline-size: min(13.75rem, 100%);
+  margin-block-end: 1.125rem;
+}
+
+.auth-heading {
+  margin-block-end: 1.25rem;
+  font-size: clamp(1.625rem, 8vw, 2.625rem);
+  font-weight: 640;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.auth-form {
+  gap: var(--space-4);
+}
+
+.auth-alert {
+  margin-block-end: var(--space-1);
+}
+
+.auth-submit {
+  margin-block-start: var(--space-2);
+}
+
+.auth-switch {
+  margin-block-start: var(--space-5);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.auth-switch a {
+  font-weight: 750;
+}
+
+@media (min-width: 40rem) {
+  .auth-card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .auth-page {
+    padding-inline: var(--space-2);
+  }
+
+  .auth-card {
+    padding-inline: var(--space-4);
+  }
+}

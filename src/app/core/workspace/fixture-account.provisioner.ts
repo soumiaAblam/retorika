@@ -1,0 +1,45 @@
+import { inject, Injectable } from '@angular/core';
+import type { LocalAccount } from '../auth';
+import { LocalAccountRepository } from '../auth';
+import { FIXTURE_ACCOUNT_ID } from './fixture-workspace.factory';
+
+export const FIXTURE_ACCOUNT_EMAIL = 'demo@demo.com';
+export const FIXTURE_ACCOUNT_PASSWORD = 'demo123';
+export const FIXTURE_ACCOUNT_DISPLAY_NAME = 'Alex Morgan';
+
+@Injectable({ providedIn: 'root' })
+export class FixtureAccountProvisioner {
+  private readonly accounts = inject(LocalAccountRepository);
+
+  async ensureFixtureAccount(): Promise<void> {
+    const account: LocalAccount = {
+      id: FIXTURE_ACCOUNT_ID,
+      email: FIXTURE_ACCOUNT_EMAIL,
+      displayName: FIXTURE_ACCOUNT_DISPLAY_NAME,
+      password: FIXTURE_ACCOUNT_PASSWORD,
+    };
+
+    const existingAccount = this.accounts.findById(FIXTURE_ACCOUNT_ID);
+    if (existingAccount.ok && existingAccount.value) {
+      const needsRefresh =
+        existingAccount.value.email !== account.email ||
+        existingAccount.value.password !== account.password ||
+        existingAccount.value.displayName !== account.displayName;
+
+      if (!needsRefresh) {
+        return;
+      }
+
+      this.accounts.replace(account);
+      return;
+    }
+
+    const conflictingEmail = this.accounts.findByEmail(FIXTURE_ACCOUNT_EMAIL);
+    if (conflictingEmail.ok && conflictingEmail.value) {
+      this.accounts.replace(account);
+      return;
+    }
+
+    this.accounts.add(account);
+  }
+}
